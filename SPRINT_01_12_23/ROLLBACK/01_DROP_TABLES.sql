@@ -5,32 +5,25 @@ GO
 BEGIN TRANSACTION;
 
 BEGIN TRY
-    -- Dropping tables in the reverse order of creation due to dependencies
+    -- Drop tables in the reverse order of creation due to dependencies
+    IF OBJECT_ID('dbo.ScheduleOrder', 'U') IS NOT NULL
+        DROP TABLE ScheduleOrder;
+
+    IF OBJECT_ID('dbo.Apartment', 'U') IS NOT NULL
+        DROP TABLE Apartment;
+
+    IF OBJECT_ID('dbo.Tower', 'U') IS NOT NULL
+        DROP TABLE Tower;
+
     IF OBJECT_ID('dbo.UserRoles', 'U') IS NOT NULL
         DROP TABLE UserRoles;
 
     IF OBJECT_ID('dbo.Roles', 'U') IS NOT NULL
         DROP TABLE Roles;
-    
-    IF OBJECT_ID('dbo.Appointments', 'U') IS NOT NULL
-        DROP TABLE Appointments;
-
-    IF OBJECT_ID('dbo.Answers', 'U') IS NOT NULL
-        DROP TABLE Answers;
 
     IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL
         DROP TABLE Users;
 
-    IF OBJECT_ID('dbo.ServiceOrders', 'U') IS NOT NULL
-        DROP TABLE ServiceOrders;
-
-    IF OBJECT_ID('dbo.Questions', 'U') IS NOT NULL
-        DROP TABLE Questions;
-
-    IF OBJECT_ID('dbo.Templates', 'U') IS NOT NULL
-        DROP TABLE Templates;
-
-    -- If the statements are successful, commit the transaction
     COMMIT TRANSACTION;
 
 END TRY
